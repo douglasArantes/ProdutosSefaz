@@ -6,9 +6,12 @@ import java.sql.SQLException
 import java.util.*
 
 data class DatabaseConnection(
-        val databaseUrl: String = "jdbc:postgresql://localhost:5432/produto_sefaz",
-        val user: String = "postgres",
-        val password: String = "1234asd"){
+        //val databaseUrl: String = "jdbc:postgresql://localhost:5432/produto_sefaz",
+        val databaseUrl: String = "jdbc:netezza://s1431.ms:5480/MINING_SEFAZ",
+        //val user: String = "postgres",
+        val user: String = "dbarantes",
+        //val password: String = "1234asd"){
+        val password: String = "db@r@ntes"){
 
     var connection: Connection? = null
 

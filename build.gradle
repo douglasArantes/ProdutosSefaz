@@ -31,9 +31,9 @@ dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib-jre8:$kotlin_version"
     compile group: 'org.hsqldb', name: 'hsqldb', version: '2.4.1'
 
-    compile group: 'org.postgresql', name: 'postgresql', version: '42.2.2'
+    //compile group: 'org.postgresql', name: 'postgresql', version: '42.2.2'
 
-    //compile group: 'org.netezza', name: "nzjdbc", version: '1.0'
+    compile group: 'org.netezza', name: "nzjdbc", version: '1.0'
 }
 
 mainClassName = 'tornadofx.demo.app.MyApp'
