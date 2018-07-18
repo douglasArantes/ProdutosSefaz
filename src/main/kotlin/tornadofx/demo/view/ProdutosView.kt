@@ -8,6 +8,7 @@ import javafx.scene.layout.Priority
 import tornadofx.*
 import tornadofx.demo.model.ProdutoSefaz
 import tornadofx.demo.repository.ProdutosRepository
+import tornadofx.demo.app.Styles.Companion.successButton
 
 class ProdutosView : View("ProdutosApp") {
 
@@ -25,6 +26,8 @@ class ProdutosView : View("ProdutosApp") {
                 action {
                     ProdutosRepository.salvarAlteraçoes(items.toList())
                 }
+
+                addClass(successButton)
             }
         }
 
@@ -47,10 +50,10 @@ class ProdutosView : View("ProdutosApp") {
 
             setOnKeyPressed { it ->
                 if(it.code == KeyCode.SPACE){
-                    println("Space Pressed...")
                     dialog {
-                        vbox {
+                        vbox(6.0) {
                             label("Código de Produto")
+
                             var codigoProduto = textfield()
 
                             button("Preencher") {
@@ -64,8 +67,11 @@ class ProdutosView : View("ProdutosApp") {
 
                                         refresh()
                                         close()
+                                    } else{
+                                        codigoProduto.text = ""
                                     }
                                 }
+                                addClass(successButton)
                             }
                         }
                     }
