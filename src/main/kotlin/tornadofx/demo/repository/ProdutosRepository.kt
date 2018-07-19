@@ -13,17 +13,17 @@ object ProdutosRepository {
         val connection = DatabaseConnection().connection
         val stmt = connection?.createStatement()
 
-        val resultSet = stmt?.executeQuery("SELECT * FROM uplan_st_combustiveis_produtos_novos")
+        val resultSet = stmt?.executeQuery("SELECT * FROM MINING_SEFAZ.SRJUNIOR.UPLAN_ST_COMBUSTIVEIS_PRODUTOS_NOVOS")
 
         while (resultSet?.next()!!) {
-            val id = resultSet.getInt("id")
-            val prodCprod = resultSet.getString("prod_cprod")
-            val prodNcm = resultSet.getInt("prod_ncm")
-            val codProdSefaz = resultSet.getInt("cod_prod_sefaz")
-            val prodXprod = resultSet.getString("prod_xprod")
-            val emitXnome = resultSet.getString("emit_xnome")
-            val emitCnpjCpf = resultSet.getString("emit_cnpj_cpf")
-            val dtInsercao = resultSet.getTimestamp("dt_insercao").toLocalDateTime()
+            val id = resultSet.getInt("ID")
+            val prodCprod = resultSet.getString("PROD_CPROD")
+            val prodNcm = resultSet.getInt("PROD_NCM")
+            val codProdSefaz = resultSet.getInt("COD_PROD_SEFAZ")
+            val prodXprod = resultSet.getString("PROD_XPROD")
+            val emitXnome = resultSet.getString("EMIT_XNOME")
+            val emitCnpjCpf = resultSet.getString("EMIT_CNPJ_CPF")
+            val dtInsercao = resultSet.getTimestamp("DT_INSERCAO").toLocalDateTime()
 
 
             val prodSefaz = ProdutoSefaz(
@@ -47,9 +47,9 @@ object ProdutosRepository {
         var connection = DatabaseConnection().connection
 
         val updadeStatement = """
-            UPDATE uplan_st_combustiveis_produtos_novos
-            SET cod_prod_sefaz = ?
-            WHERE id = ?"""
+            UPDATE MINING_SEFAZ.SRJUNIOR.UPLAN_ST_COMBUSTIVEIS_PRODUTOS_NOVOS
+            SET COD_PROD_SEFAZ = ?
+            WHERE ID = ?"""
 
         for(produto in produtosSefaz) {
 
