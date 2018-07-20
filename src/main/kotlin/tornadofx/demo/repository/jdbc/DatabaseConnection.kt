@@ -11,7 +11,8 @@ data class DatabaseConnection(
         //val user: String = "postgres",
         val user: String = "dbarantes",
         //val password: String = "1234asd"){
-        val password: String = "db@r@ntes"){
+        val password: String = "db@r@ntes",
+        val driverName: String = "org.netezza.Driver"){
 
     var connection: Connection? = null
 
@@ -21,6 +22,8 @@ data class DatabaseConnection(
         props["password"] = password
 
         try {
+
+            Class.forName(driverName)
             connection = DriverManager.getConnection(databaseUrl, props)
 
         }catch (e: SQLException){
