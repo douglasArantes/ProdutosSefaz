@@ -1,4 +1,4 @@
-package tornadofx.demo.repository.jdbc
+package sefaz.ms.produtos.repository.jdbc
 
 import java.sql.Connection
 import java.sql.DriverManager

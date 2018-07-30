@@ -1,4 +1,4 @@
-package tornadofx.demo.view
+package sefaz.ms.produtos.view
 import javafx.collections.FXCollections
 import javafx.collections.ObservableList
 import javafx.geometry.Insets
@@ -6,9 +6,9 @@ import javafx.scene.control.TableView.CONSTRAINED_RESIZE_POLICY
 import javafx.scene.input.KeyCode
 import javafx.scene.layout.Priority
 import tornadofx.*
-import tornadofx.demo.model.ProdutoSefaz
-import tornadofx.demo.repository.ProdutosRepository
-import tornadofx.demo.app.Styles.Companion.successButton
+import sefaz.ms.produtos.model.ProdutoSefaz
+import sefaz.ms.produtos.repository.ProdutosRepository
+import sefaz.ms.produtos.app.Styles.Companion.successButton
 
 class ProdutosView : View("ProdutosApp") {
 

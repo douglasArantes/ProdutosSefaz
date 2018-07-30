@@ -1,6 +1,6 @@
-package tornadofx.demo.app
+package sefaz.ms.produtos.app
 
 import tornadofx.App
-import tornadofx.demo.view.ProdutosView
+import sefaz.ms.produtos.view.ProdutosView
 
 class MyApp: App(ProdutosView::class, Styles::class)

@@ -1,7 +1,7 @@
-package tornadofx.demo.repository
+package sefaz.ms.produtos.repository
 
-import tornadofx.demo.model.ProdutoSefaz
-import tornadofx.demo.repository.jdbc.DatabaseConnection
+import sefaz.ms.produtos.model.ProdutoSefaz
+import sefaz.ms.produtos.repository.jdbc.DatabaseConnection
 
 object ProdutosRepository {
 
@@ -18,7 +18,7 @@ object ProdutosRepository {
         while (resultSet?.next()!!) {
             val id = resultSet.getInt("ID")
             val prodCprod = resultSet.getString("PROD_CPROD")
-            val prodNcm = resultSet.getInt("PROD_NCM")
+            val prodNcm = resultSet.getString("PROD_NCM")
             val codProdSefaz = resultSet.getInt("COD_PROD_SEFAZ")
             val prodXprod = resultSet.getString("PROD_XPROD")
             val emitXnome = resultSet.getString("EMIT_XNOME")
