@@ -4,23 +4,25 @@ import javafx.collections.FXCollections
 import javafx.collections.ObservableList
 import javafx.geometry.Insets
 import javafx.geometry.Pos
-import javafx.scene.control.*
+import javafx.scene.control.TableColumn
+import javafx.scene.control.TableView
 import javafx.scene.control.TableView.CONSTRAINED_RESIZE_POLICY
+import javafx.scene.control.TextField
 import javafx.scene.input.KeyCode
 import javafx.scene.layout.Priority
 import org.controlsfx.control.CheckComboBox
 import org.controlsfx.control.Notifications
-import tornadofx.*
+import sefaz.ms.produtos.app.Styles.Companion.successButton
 import sefaz.ms.produtos.model.ProdutoSefaz
 import sefaz.ms.produtos.repository.ProdutosRepository
-import sefaz.ms.produtos.app.Styles.Companion.successButton
+import tornadofx.*
 
 class ProdutosView : View("ProdutosApp") {
 
     private val produtos: ObservableList<ProdutoSefaz>
-    private val codigosDePodutos: ObservableList<Int>
+    private var codigosDePodutos: ObservableList<Int>
 
-    private val editedRows = ArrayList<Pair<Int, Int>>()
+    private val editedRows = HashMap<Int, Int>()
 
     private var table: TableView<ProdutoSefaz> = TableView()
 
@@ -87,7 +89,6 @@ class ProdutosView : View("ProdutosApp") {
             if (codProdSefazChecked.size > 0) {
                 filterCodProdSefaz = it.codProdSefaz in codProdSefazChecked
 
-                //println("${it.codProdSefaz} IN ${codProdSefazChecked} = ${it.codProdSefaz in codProdSefazChecked}")
             }
 
             (filterId and filterDtInsercao and filterXprod and filterCprod and filterNcm
@@ -103,12 +104,21 @@ class ProdutosView : View("ProdutosApp") {
             button("Salvar Alterações") {
                 action {
 
-                    val editedRowsCopy = ArrayList<Pair<Int, Int>>(editedRows.size)
-                    editedRowsCopy.addAll(editedRows)
+                    val editedRowsCopy = HashMap<Int, Int>(editedRows.size)
+
+                    editedRowsCopy.putAll(editedRows)
 
                     val quantidadeRegistrosAlterados = editedRowsCopy.size
 
                     if (quantidadeRegistrosAlterados > 0) {
+
+                        runAsync {
+                            ProdutosRepository.salvarAlteraçoes(editedRowsCopy.toList())
+                        } ui {
+                            codigosDePodutos = FXCollections.observableArrayList(ProdutosRepository.codigosProdutos())
+                            codigoProdutoSefazCheckComboBox.items.clear()
+                            codigoProdutoSefazCheckComboBox.items.addAll(codigosDePodutos)
+                        }
 
                         val mensagem = if (quantidadeRegistrosAlterados == 1) {
                             "$quantidadeRegistrosAlterados registro está sendo salvo"
@@ -131,10 +141,6 @@ class ProdutosView : View("ProdutosApp") {
                     }
 
                     editedRows.clear()
-
-                    runAsync {
-                        ProdutosRepository.salvarAlteraçoes(editedRowsCopy)
-                    }
                 }
                 addClass(successButton)
             }
@@ -143,7 +149,7 @@ class ProdutosView : View("ProdutosApp") {
         }
 
 
-        table = tableview(data, {
+        table = tableview(data) {
             column("", ProdutoSefaz::id).graphic = vbox {
                 label("ID")
                 idTextField = textfield {
@@ -284,7 +290,7 @@ class ProdutosView : View("ProdutosApp") {
                     }
                 }
             }
-        })
+        }
 
         padding = Insets(10.0)
     }

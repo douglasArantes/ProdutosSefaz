@@ -31,8 +31,6 @@ dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib-jre8:$kotlin_version"
     compile group: 'org.controlsfx', name: 'controlsfx', version: '8.40.11'
     compile group: 'org.netezza', name: "nzjdbc", version: '1.0'
-
-    //compile group: 'org.postgresql', name: 'postgresql', version: '42.2.2'
 }
 
 mainClassName = 'sefaz.ms.produtos.app.MyApp'

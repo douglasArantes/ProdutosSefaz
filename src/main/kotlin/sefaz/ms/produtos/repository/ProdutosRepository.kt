@@ -37,7 +37,6 @@ object ProdutosRepository {
             val stmt = connection?.createStatement()
 
             val resultSet = stmt?.executeQuery("SELECT * FROM MINING_SEFAZ.SRJUNIOR.UPLAN_ST_COMBUSTIVEIS_PRODUTOS_NOVOS")
-            //val resultSet = stmt?.executeQuery("SELECT * FROM uplan_st_combustiveis_produtos_novos")
 
             while (resultSet?.next()!!) {
                 val id = resultSet.getInt("ID")
@@ -76,12 +75,7 @@ object ProdutosRepository {
              SET COD_PROD_SEFAZ = ?
              WHERE ID = ?"""
 
-       /* val updadeStatement = """
-            UPDATE uplan_st_combustiveis_produtos_novos
-            SET cod_prod_sefaz = ?
-            WHERE id = ?"""*/
-
-        connection.use {
+            connection.use {
 
             connection?.autoCommit = false
 
