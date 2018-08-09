@@ -2,10 +2,29 @@ package sefaz.ms.produtos.repository
 
 import sefaz.ms.produtos.model.ProdutoSefaz
 import sefaz.ms.produtos.repository.jdbc.DatabaseConnection
-import java.sql.PreparedStatement
 
 object ProdutosRepository {
 
+    fun codigosProdutos(): List<Int> {
+
+        val codigos = ArrayList<Int>()
+
+        val connection = DatabaseConnection().connection
+
+        connection.use {
+            val stmt = connection?.createStatement()
+
+            val resultSet = stmt?.executeQuery("""SELECT DISTINCT (COD_PROD_SEFAZ)
+                FROM MINING_SEFAZ.SRJUNIOR.UPLAN_ST_COMBUSTIVEIS_PRODUTOS_NOVOS ORDER BY COD_PROD_SEFAZ""")
+
+            while (resultSet?.next()!!) {
+                val codigo = resultSet.getInt("COD_PROD_SEFAZ")
+
+                codigos += codigo
+            }
+        }
+        return codigos
+    }
 
     fun produtos(): List<ProdutoSefaz> {
 
@@ -17,8 +36,8 @@ object ProdutosRepository {
 
             val stmt = connection?.createStatement()
 
-            //val resultSet = stmt?.executeQuery("SELECT * FROM MINING_SEFAZ.SRJUNIOR.UPLAN_ST_COMBUSTIVEIS_PRODUTOS_NOVOS")
-            val resultSet = stmt?.executeQuery("SELECT * FROM uplan_st_combustiveis_produtos_novos")
+            val resultSet = stmt?.executeQuery("SELECT * FROM MINING_SEFAZ.SRJUNIOR.UPLAN_ST_COMBUSTIVEIS_PRODUTOS_NOVOS")
+            //val resultSet = stmt?.executeQuery("SELECT * FROM uplan_st_combustiveis_produtos_novos")
 
             while (resultSet?.next()!!) {
                 val id = resultSet.getInt("ID")
@@ -52,15 +71,15 @@ object ProdutosRepository {
 
         var connection = DatabaseConnection().connection
 
-        /*val updadeStatement = """
+        val updadeStatement = """
              UPDATE MINING_SEFAZ.SRJUNIOR.UPLAN_ST_COMBUSTIVEIS_PRODUTOS_NOVOS
              SET COD_PROD_SEFAZ = ?
-             WHERE ID = ?"""*/
+             WHERE ID = ?"""
 
-        val updadeStatement = """
+       /* val updadeStatement = """
             UPDATE uplan_st_combustiveis_produtos_novos
             SET cod_prod_sefaz = ?
-            WHERE id = ?"""
+            WHERE id = ?"""*/
 
         connection.use {
 
@@ -76,9 +95,9 @@ object ProdutosRepository {
             }
 
             if (prepStmt != null) {
-                prepStmt!!.executeBatch()
+                prepStmt.executeBatch()
                 connection?.commit()
-                prepStmt!!.clearBatch()
+                prepStmt.clearBatch()
             }
         }
     }
